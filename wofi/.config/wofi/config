@@ -1,0 +1,7 @@
+show-icons=true
+width=500
+height=400
+prompt=Search:
+dpi-aware=true
+allow-markup=false
+gtk-dark-theme=true

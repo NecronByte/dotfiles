@@ -1,0 +1,33 @@
+* {
+  border: none;
+  border-radius: 0;
+  font-family: JetBrainsMono Nerd Font, monospace;
+  font-size: 14px;
+  min-height: 0;
+}
+
+window#waybar {
+  background: #2E3440; /* nord0 */
+  color: #D8DEE9;      /* nord4 */
+}
+
+#workspaces button {
+  padding: 0 6px;
+  color: #D8DEE9;         /* nord4 */
+  background: transparent;
+  border: none;
+}
+
+#workspaces button.active {
+  background: #4C566A;    /* nord3 */
+  color: #ECEFF4;         /* nord6 */
+}
+
+#clock,
+#battery,
+#pulseaudio,
+#network {
+  padding: 0 10px;
+  background-color: #3B4252; /* nord1 */
+  margin: 0 2px;
+}
