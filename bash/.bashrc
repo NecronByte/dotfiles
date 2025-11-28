@@ -23,3 +23,47 @@ if [ -d ~/.bashrc.d ]; then
     done
 fi
 unset rc
+
+_ai_update_npm_global() {
+  local pkg="$1"
+  local label="$2"
+
+  local before after
+
+  before=$(_ai_npm_version "$pkg")
+
+  if [[ -z "$before" ]]; then
+    echo "📦 $label: inte installerad (enligt npm), installerar senaste..."
+    npm install -g "$pkg"
+    after=$(_ai_npm_version "$pkg")
+
+    if [[ -n "$after" ]]; then
+      echo "✅ $label: installerad i version $after"
+    else
+      echo "⚠️  $label: installation kördes, men kunde inte läsa ut version."
+    fi
+    return
+  fi
+
+  echo "🔍 $label: nuvarande version $before"
+  npm update -g "$pkg" >/dev/null 2>&1
+  after=$(_ai_npm_version "$pkg")
+
+  if [[ -z "$after" ]]; then
+    echo "❌ $label: verkar försvunnit efter uppdatering?! (kolla npm ls -g $pkg)"
+  elif [[ "$after" == "$before" ]]; then
+    echo "ℹ️  $label: redan senaste ($before)"
+  else
+    echo "✅ $label: uppdaterad $before → $after"
+  fi
+}
+
+ai-tools-update() {
+  echo "=== 🔧 Uppdaterar AI-verktyg (npm global) ==="
+  _ai_update_npm_global "@openai/codex" "Codex CLI"
+  _ai_update_npm_global "@anthropic-ai/claude-code" "Claude Code"
+  _ai_update_npm_global "@github/copilot" "GitHub Copilot CLI"
+  echo "=== ✅ Klar ==="
+}
+
+alias aiupdate="ai-tools-update"
