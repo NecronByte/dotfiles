@@ -26,13 +26,6 @@ unset rc
 
 # Hjälpfunktion: hämta global npm-version för ett paket
 _ai_npm_version() {
-  npm list -g "$1" --depth=0 2>/dev/null \
-    | tail -n 1 \
-    | sed -E 's/.*@([^@]+)$/\1/'
-}
-
-# Hjälpfunktion: hämta global npm-version för ett paket
-_ai_npm_version() {
   # Vi letar explicit efter raden med paketet, t.ex.
   # └── @openai/codex@0.3.0
   npm ls -g "$1" --depth=0 2>/dev/null \
